@@ -5,6 +5,14 @@ import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addItem } from "../CartSlice";
 
+// Toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// AOS Animation
+import AOS from "aos";
+import "aos/dist/aos.css";
+
 const SearchResults = () => {
   const [results, setResults] = useState([]);
   const location = useLocation();
@@ -12,6 +20,8 @@ const SearchResults = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    AOS.init({ duration: 1000, once: false });
+
     const fetchResults = async () => {
       try {
         const res = await axios.get("http://localhost:3000/items");
@@ -24,6 +34,7 @@ const SearchResults = () => {
         );
 
         setResults(filtered);
+        AOS.refresh(); // Refresh AOS after setting new content
       } catch (err) {
         console.error(err);
       }
@@ -36,20 +47,31 @@ const SearchResults = () => {
 
   const handleAddToCart = (product) => {
     dispatch(addItem(product));
-    alert(`${product.name} added to cart!`);
+    toast.success(`${product.name} added to cart!`);
   };
 
   return (
     <Container style={{ paddingTop: "90px" }}>
-      <h2 className="text-center mb-4">Search Results for "{query}"</h2>
+      <h2 className="text-center mb-4" data-aos="fade-down">
+        Search Results for "{query}"
+      </h2>
+
       {results.length > 0 ? (
         <Row className="justify-content-center">
-          {results.map((product) => (
-            <Col key={product.id} md={4} sm={6} xs={12} className="mb-3">
-              <Card className="text-center h-100">
+          {results.map((product, index) => (
+            <Col
+              key={product.id}
+              md={4}
+              sm={6}
+              xs={12}
+              className="mb-3"
+              data-aos="zoom-in-up"
+              data-aos-delay={index * 100}
+            >
+              <Card className="text-center h-100 shadow">
                 <Card.Img
                   variant="top"
-                  src={product.image}
+                  src={product.image || "https://via.placeholder.com/300"}
                   style={{ objectFit: "contain", height: "200px" }}
                 />
                 <Card.Body>
@@ -71,8 +93,13 @@ const SearchResults = () => {
           ))}
         </Row>
       ) : (
-        <p className="text-center text-muted">No results found.</p>
+        <p className="text-center text-muted" data-aos="fade-up">
+          No results found.
+        </p>
       )}
+
+      {/* Toast Notification Container */}
+      <ToastContainer position="top-center" autoClose={2000} />
     </Container>
   );
 };

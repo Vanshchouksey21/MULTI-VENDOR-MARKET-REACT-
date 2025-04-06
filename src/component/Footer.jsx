@@ -1,13 +1,15 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "../css/Style.css";
 
 const Footer = () => {
   return (
-    <footer className="bg-dark text-light py-4">
+    <footer className="custom-footer">
       <Container>
-        <Row>
-          {/* About Section */}
-          <Col md={4}>
+        <Row className="mb-4">
+          {/* About */}
+          <Col md={4} className="mb-4">
             <h5>About Us</h5>
             <p>
               We are a leading multi-vendor marketplace connecting buyers with trusted sellers worldwide.
@@ -15,31 +17,30 @@ const Footer = () => {
           </Col>
 
           {/* Quick Links */}
-          <Col md={4}>
+          <Col md={4} className="mb-4">
             <h5>Quick Links</h5>
             <ul className="list-unstyled">
-              <li><a href="/" className="text-light">Home</a></li>
-              <li><a href="/about" className="text-light">About</a></li>
-              <li><a href="/contact" className="text-light">Contact</a></li>
-              <li><a href="/terms" className="text-light">Terms & Conditions</a></li>
+              <li><Link to="/" className="footer-link">Home</Link></li>
+              <li><Link to="/about" className="footer-link">About</Link></li>
+              <li><Link to="/contact" className="footer-link">Contact</Link></li>
+              <li><Link to="/terms" className="footer-link">Terms & Conditions</Link></li>
             </ul>
           </Col>
 
-          {/* Contact Section */}
-          <Col md={4}>
+          {/* Contact */}
+          <Col md={4} className="mb-4">
             <h5>Contact Us</h5>
-            <p>Email: Vanshchouksey2175@gmail.com</p>
-            <p>Phone: 9300769509</p>
-            <p>Address: 123 Market Street, City, Country</p>
+            <p>Email: <a href="mailto:Vanshchouksey2175@gmail.com" className="footer-link">Vanshchouksey2175@gmail.com</a></p>
+            <p>Phone: <span className="text-white">9300769509</span></p>
+            <p>Address: <span className="text-white">123 Market Street, City, Country</span></p>
           </Col>
         </Row>
 
         <hr />
 
-        {/* Copyright Section */}
         <Row>
           <Col className="text-center">
-            <p className="mb-0">&copy; {new Date().getFullYear()} Multi-Vendor Marketplace. All Rights Reserved.</p>
+            <p className="mb-0">&copy; {new Date().getFullYear()} MultiVendor Marketplace. All Rights Reserved.</p>
           </Col>
         </Row>
       </Container>

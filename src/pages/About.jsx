@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import "../css/Style.css"; // Link your CSS if needed
+import "../css/Style.css"; // Make sure this path is correct
 
 const About = () => {
   return (
-    <div className="py-5 bg-light">
+    <div className="about-section py-5 bg-light">
       <Container>
         <Row className="mb-5 text-center">
           <Col>
