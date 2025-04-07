@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Carousel, Card, Button, Container, Row, Col } from "react-bootstrap";
+import {
+  Carousel,
+  Card,
+  Button,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 import car1 from "../images/ChatGPT Image Apr 6, 2025, 03_45_03 PM.png";
-// import car2 from "../images/your-second-image.jpg";
-// import car3 from "../images/your-third-image.jpg";
+import car2 from "../images/ChatGPT Image Apr 7, 2025, 12_41_16 PM.png";
+import car3 from "../images/ChatGPT Image Apr 7, 2025, 12_44_02 PM.png";
 import axios from "axios";
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +20,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../css/Style.css";
 
-// AOS for animations
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -24,22 +30,22 @@ const Home = () => {
   const cartItems = useSelector((state) => state.mycart.items);
 
   useEffect(() => {
-    // Initialize AOS to trigger every time an element appears
-    AOS.init({ duration: 1000, once: false });
+    AOS.init({ duration: 1000 });
 
     const fetchProducts = async () => {
       try {
-        let res = await axios.get("http://localhost:3000/items");
+        const res = await axios.get("http://localhost:3000/items");
         const updatedProducts = res.data.map((product) => ({
           ...product,
           discountedPrice: parseFloat((product.price * 0.75).toFixed(2)),
         }));
         setProducts(updatedProducts);
-        AOS.refresh(); // Refresh AOS after setting products
+        AOS.refresh();
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
+
     fetchProducts();
   }, []);
 
@@ -62,34 +68,39 @@ const Home = () => {
     <div>
       {/* Carousel Section */}
       <Carousel style={{ height: "500px" }}>
-        <Carousel.Item style={{ height: "500px" }} data-aos="fade-up">
-          <img
-            className="d-block w-100"
-            src={car1}
-            alt="E-Commerce Shopping"
-            style={{ objectFit: "cover", height: "100%" }}
-          />
-          <Carousel.Caption>
-            <h3>Shop from Multiple Vendors</h3>
-            <p>Get the best deals from trusted sellers.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item style={{ height: "500px" }} data-aos="fade-left">
-          {/* <img className="d-block w-100" src={car2} alt="Multi-Vendor Storefront" style={{ objectFit: "cover", height: "100%" }} /> */}
-          <Carousel.Caption>
-            <h3>Thousands of Products</h3>
-            <p>Explore categories and find what you need.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item style={{ height: "500px" }} data-aos="fade-right">
-          {/* <img className="d-block w-100" src={car3} alt="Fast & Secure Checkout" style={{ objectFit: "cover", height: "100%" }} /> */}
-          <Carousel.Caption>
-            <h3>Secure Payments</h3>
-            <p>Safe and fast checkout with multiple payment options.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {[car1, car2, car3].map((image, index) => (
+          <Carousel.Item key={index} style={{ height: "500px" }}>
+            <img
+              className="d-block w-100"
+              src={image}
+              alt={`Slide ${index + 1}`}
+              style={{
+                objectFit: "cover",
+                height: "100vh",
+              }}
+            />
+            <Carousel.Caption>
+              {index === 0 && (
+                <>
+                  <h3>Shop from Multiple Vendors</h3>
+                  <p>Get the best deals from trusted sellers.</p>
+                </>
+              )}
+              {index === 1 && (
+                <>
+                  <h3>Thousands of Products</h3>
+                  <p>Explore categories and find what you need.</p>
+                </>
+              )}
+              {index === 2 && (
+                <>
+                  <h3>Secure Payments</h3>
+                  <p>Fast checkout with multiple payment options.</p>
+                </>
+              )}
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
       </Carousel>
 
       {/* Products Section */}
@@ -108,16 +119,7 @@ const Home = () => {
               data-aos="zoom-in"
               data-aos-delay={index * 100}
             >
-              <Card
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  textAlign: "center",
-                }}
-              >
+              <Card className="h-100 text-center">
                 <a href="#" onClick={() => ProDisplay(product.id)}>
                   <Card.Img
                     variant="top"
@@ -136,12 +138,7 @@ const Home = () => {
                     <strong>Vendor:</strong> {product.vendor || "Unknown"} <br />
                     <strong>Category:</strong> {product.category} <br />
                     <strong>Price:</strong>{" "}
-                    <span
-                      style={{
-                        textDecoration: "line-through",
-                        color: "red",
-                      }}
-                    >
+                    <span style={{ textDecoration: "line-through", color: "red" }}>
                       ₹{product.price}
                     </span>
                     <h3>₹{product.discountedPrice}</h3>
@@ -155,11 +152,7 @@ const Home = () => {
                       Buy Now
                     </Button>
                     <FaShoppingCart
-                      style={{
-                        fontSize: "1.5rem",
-                        cursor: "pointer",
-                        color: "#007bff",
-                      }}
+                      style={{ fontSize: "1.5rem", cursor: "pointer", color: "#007bff" }}
                       onClick={() => handleAddToCart(product)}
                     />
                   </div>

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { addItem } from "../CartSlice"; // adjust path based on your structure
+import { addItem } from "../CartSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Productdetails = () => {
   const { id } = useParams();
@@ -14,8 +16,7 @@ const Productdetails = () => {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const api = `http://localhost:3000/items?id=${id}`;
-        const res = await axios.get(api);
+        const res = await axios.get(`http://localhost:3000/items?id=${id}`);
         if (res.data.length > 0) {
           setProduct(res.data[0]);
         } else {
@@ -34,28 +35,36 @@ const Productdetails = () => {
 
   const handleAddToCart = () => {
     dispatch(addItem(product));
-    alert(`${product.name} added to cart!`);
+    toast.success(`${product.name} added to cart!`);
   };
 
   const handleBuyNow = () => {
-    alert(`Proceeding to buy ${product.name}`);
-    // You could navigate to a checkout page here
+    toast.info(`Proceeding to buy ${product.name}`);
+    // Later, navigate to checkout if needed
   };
 
   if (loading) return <h2 style={{ padding: "20px" }}>Loading...</h2>;
   if (error) return <h2 style={{ padding: "20px", color: "red" }}>{error}</h2>;
   if (!product) return <h2 style={{ padding: "20px" }}>No product found.</h2>;
 
+  const discountedPrice = (product.price * 0.9).toFixed(2);
+
   return (
     <div style={{ padding: "20px", maxWidth: "600px", margin: "auto", textAlign: "center" }}>
       <img
-        src={product.image}
+        src={product.image || "https://via.placeholder.com/400"}
         alt={product.name}
         style={{ width: "100%", maxWidth: "400px", height: "auto", borderRadius: "10px" }}
       />
       <h1 style={{ marginTop: "20px" }}>{product.name}</h1>
-      <h3 style={{ color: "#555" }}>Price: ${product.price}</h3>
+      <p>
+        <span style={{ textDecoration: "line-through", color: "red" }}>
+          ₹{product.price}
+        </span>{" "}
+        <span style={{ fontSize: "1.4rem", color: "green" }}>₹{discountedPrice}</span>
+      </p>
       <h4 style={{ color: "#777" }}>Vendor: {product.vendor}</h4>
+      <h5 style={{ color: "#888" }}>Category: {product.category}</h5>
 
       <div style={{ marginTop: "30px" }}>
         <button
@@ -86,6 +95,9 @@ const Productdetails = () => {
           Buy Now
         </button>
       </div>
+
+      {/* Toast Notifications */}
+      <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );
 };
