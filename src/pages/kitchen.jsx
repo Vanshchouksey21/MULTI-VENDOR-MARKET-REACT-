@@ -21,11 +21,11 @@ const Kitchen = () => {
   const cartItems = useSelector((state) => state.mycart.items);
 
   useEffect(() => {
-    AOS.init({ duration: 1000, once: false }); // Allow repeated animations
+    AOS.init({ duration: 1000, once: false });
 
     const fetchProducts = async () => {
       try {
-        let res = await axios.get("http://localhost:3000/items");
+        const res = await axios.get("https://json-deploy-react.onrender.com/items");
         const updatedProducts = res.data
           .filter((product) => product.category === "Kitchen Appliances")
           .map((product) => ({
@@ -33,7 +33,7 @@ const Kitchen = () => {
             discountedPrice: parseFloat((product.price * 0.9).toFixed(2)),
           }));
         setProducts(updatedProducts);
-        AOS.refresh(); // Refresh AOS after data load
+        AOS.refresh();
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -42,7 +42,7 @@ const Kitchen = () => {
   }, []);
 
   const ProDisplay = (id) => {
-    navigate(`Productdetails/${id}`);
+    navigate(`/Productdetails/${id}`);
   };
 
   const handleAddToCart = (product) => {
@@ -74,7 +74,7 @@ const Kitchen = () => {
               data-aos-delay={index * 100}
             >
               <Card className="h-100 text-center shadow">
-                <a href="#" onClick={() => ProDisplay(product.id)}>
+                <span onClick={() => ProDisplay(product.id)} style={{ cursor: "pointer" }}>
                   <Card.Img
                     variant="top"
                     src={product.image || "https://via.placeholder.com/300"}
@@ -85,7 +85,7 @@ const Kitchen = () => {
                       objectFit: "contain",
                     }}
                   />
-                </a>
+                </span>
                 <Card.Body className="d-flex flex-column justify-content-between">
                   <Card.Title
                     style={{
@@ -148,7 +148,6 @@ const Kitchen = () => {
         </Row>
       </Container>
 
-      {/* Toast Notification Container */}
       <ToastContainer position="top-center" autoClose={2000} />
     </div>
   );

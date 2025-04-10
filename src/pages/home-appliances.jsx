@@ -25,7 +25,7 @@ const HomeEntertainment = () => {
 
     const fetchProducts = async () => {
       try {
-        let res = await axios.get("http://localhost:3000/items");
+        let res = await axios.get("https://json-deploy-react.onrender.com/items");
         const updatedProducts = res.data
           .filter((product) => product.category === "Home Entertainment")
           .map((product) => ({
@@ -79,7 +79,11 @@ const HomeEntertainment = () => {
                     variant="top"
                     src={product.image || "https://via.placeholder.com/300"}
                     alt={product.name}
-                    style={{ width: "100%", height: "200px", objectFit: "contain" }}
+                    style={{
+                      width: "100%",
+                      height: "200px",
+                      objectFit: "contain",
+                    }}
                   />
                 </a>
                 <Card.Body className="d-flex flex-column justify-content-between">
@@ -109,7 +113,10 @@ const HomeEntertainment = () => {
                     </div>
                     <div>
                       <span
-                        style={{ textDecoration: "line-through", color: "red" }}
+                        style={{
+                          textDecoration: "line-through",
+                          color: "red",
+                        }}
                       >
                         ₹{product.price}
                       </span>

@@ -24,7 +24,7 @@ const SearchResults = () => {
 
     const fetchResults = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/items");
+        const res = await axios.get("https://json-deploy-react.onrender.com/items");
         const lowerQuery = query.toLowerCase();
 
         const filtered = res.data.filter((item) =>
@@ -36,7 +36,7 @@ const SearchResults = () => {
         setResults(filtered);
         AOS.refresh(); // Refresh AOS after setting new content
       } catch (err) {
-        console.error(err);
+        console.error("Error fetching search results:", err);
       }
     };
 
@@ -74,9 +74,18 @@ const SearchResults = () => {
                   src={product.image || "https://via.placeholder.com/300"}
                   style={{ objectFit: "contain", height: "200px" }}
                 />
-                <Card.Body>
-                  <Card.Title>{product.name}</Card.Title>
-                  <Card.Text>
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    title={product.name}
+                  >
+                    {product.name}
+                  </Card.Title>
+                  <Card.Text style={{ fontSize: "0.9rem" }}>
                     ₹{product.price} <br />
                     <strong>{product.category}</strong> <br />
                     <em>Vendor: {product.vendor}</em>
@@ -84,6 +93,7 @@ const SearchResults = () => {
                   <Button
                     variant="primary"
                     onClick={() => handleAddToCart(product)}
+                    className="mt-auto"
                   >
                     Add to Cart
                   </Button>
@@ -98,7 +108,6 @@ const SearchResults = () => {
         </p>
       )}
 
-      {/* Toast Notification Container */}
       <ToastContainer position="top-center" autoClose={2000} />
     </Container>
   );
