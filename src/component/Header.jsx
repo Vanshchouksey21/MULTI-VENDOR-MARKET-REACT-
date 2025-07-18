@@ -67,11 +67,9 @@ const Header = () => {
               <NavDropdown.Item as={Link} to="/categories/home-appliances">
                Home Entertainment
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/categories/home">
-                Home & Kitchen
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/categories/beauty">
-                Beauty
+            
+              <NavDropdown.Item as={Link} to="/categories/accessories">
+              Accessories
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to="/categories/all">

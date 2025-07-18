@@ -9,6 +9,7 @@ import About from './pages/About'
 import Kitchen from './pages/kitchen'
 import SearchResults from './pages/SearchResults'
 import HomeEntertainment from './pages/home-appliances'
+import Accessories from './pages/Accessories'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path='about' element={<About />} />
           <Route path='categories/kitchen' element={<Kitchen />} />
           <Route path='categories/home-appliances' element={<HomeEntertainment />} />
+          <Route path='categories/accessories' element={<Accessories />} />
           <Route path='/productdetails/:id' element={<Productdetails />} />
           <Route path='home/productdetails/:id' element={<Productdetails />} />
           <Route path="/search" element={<SearchResults />} />

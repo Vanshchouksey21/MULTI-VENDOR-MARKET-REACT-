@@ -13,7 +13,7 @@ import car2 from "../images/ChatGPT Image Apr 7, 2025, 12_41_16 PM.png";
 import car3 from "../images/ChatGPT Image Apr 7, 2025, 12_44_02 PM.png";
 import kitchenImg from "../images/ChatGPT Image Apr 11, 2025, 01_21_29 AM.png";
 import homeEntertainmentImg from "../images/ChatGPT Image Apr 11, 2025, 01_34_55 AM.png";
-// import wearablesImg from "../images/wearables.jpg";
+import AccessoriesImg from "../images/ChatGPT Image Apr 11, 2025, 01_49_36 PM.png";
 
 import axios from "axios";
 import { FaShoppingCart } from "react-icons/fa";
@@ -79,39 +79,44 @@ const Home = () => {
 
   return (
     <div>
-      {/* Carousel Section */}
-      <Carousel fade interval={3000} style={{ maxHeight: "500px", overflow: "hidden" }}>
-        {carouselImages.map((image, index) => (
-          <Carousel.Item key={index}>
-            <img
-              className="d-block w-100"
-              src={image}
-              alt={`Slide ${index + 1}`}
-              style={{ objectFit: "cover", height: "500px", width: "100%" }}
-            />
-            <Carousel.Caption>
-              {index === 0 && (
-                <>
-                  <h3>Shop from Multiple Vendors</h3>
-                  <p>Get the best deals from trusted sellers.</p>
-                </>
-              )}
-              {index === 1 && (
-                <>
-                  <h3>Thousands of Products</h3>
-                  <p>Explore categories and find what you need.</p>
-                </>
-              )}
-              {index === 2 && (
-                <>
-                  <h3>Secure Payments</h3>
-                  <p>Fast checkout with multiple payment options.</p>
-                </>
-              )}
-            </Carousel.Caption>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+     {/* Carousel Section */}
+<Carousel fade interval={3000} style={{ overflow: "hidden" }}>
+  {carouselImages.map((image, index) => (
+    <Carousel.Item key={index}>
+      <img
+        className="d-block w-100"
+        src={image}
+        alt={`Slide ${index + 1}`}
+        style={{
+          objectFit: "cover",
+          width: "100%",
+          minHeight: "250px", // ✅ You can reduce or increase this as needed
+          maxHeight: "60vh",   // ✅ Makes it responsive across screen sizes
+        }}
+      />
+      <Carousel.Caption style={{ background: "rgba(0,0,0,0.4)", borderRadius: "8px", padding: "10px" }}>
+        {index === 0 && (
+          <>
+            <h3>Shop from Multiple Vendors</h3>
+            <p>Get the best deals from trusted sellers.</p>
+          </>
+        )}
+        {index === 1 && (
+          <>
+            <h3>Thousands of Products</h3>
+            <p>Explore categories and find what you need.</p>
+          </>
+        )}
+        {index === 2 && (
+          <>
+            <h3>Secure Payments</h3>
+            <p>Fast checkout with multiple payment options.</p>
+          </>
+        )}
+      </Carousel.Caption>
+    </Carousel.Item>
+  ))}
+</Carousel>
 
 
       {/* Product Section */}
@@ -214,14 +219,14 @@ const Home = () => {
             </div>
           </Col>
           <Col xs={6} sm={4} md={3} className="mb-4" data-aos="zoom-in" data-aos-delay="200">
-            <div onClick={() => navigate("/Wearables")} style={{ cursor: "pointer" }}>
+            <div onClick={() => navigate("/categories/accessories")} style={{ cursor: "pointer" }}>
               <img
-                // src={wearablesImg}
+                src={AccessoriesImg}
                 alt="Wearables"
                 className="rounded-circle mb-2"
-                style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                style={{ width: "180px", height: "180px", objectFit: "cover" }}
               />
-              <p>Wearables</p>
+              <p>Accessories</p>
             </div>
           </Col>
         </Row>
