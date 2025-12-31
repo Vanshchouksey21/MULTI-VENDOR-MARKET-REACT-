@@ -16,7 +16,7 @@ const Productdetails = () => {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/items?id=${id}`);
+        const res = await axios.get(`https://json-deploy-react.onrender.com/items?id=${id}`);
         if (res.data.length > 0) {
           setProduct(res.data[0]);
         } else {
