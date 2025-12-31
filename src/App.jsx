@@ -10,6 +10,7 @@ import Kitchen from './pages/kitchen'
 import SearchResults from './pages/SearchResults'
 import HomeEntertainment from './pages/home-appliances'
 import Accessories from './pages/Accessories'
+import Profile from './component/Profile'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path='/productdetails/:id' element={<Productdetails />} />
           <Route path='home/productdetails/:id' element={<Productdetails />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/profile" element={<Profile/>}/>
          
           <Route path="/categories/all" element={<Home />} />
 

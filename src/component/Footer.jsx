@@ -30,8 +30,8 @@ const Footer = () => {
           {/* Contact */}
           <Col md={4} className="mb-4">
             <h5>Contact Us</h5>
-            <p>Email: <a href="mailto:Vanshchouksey2175@gmail.com" className="footer-link">Vanshchouksey2175@gmail.com</a></p>
-            <p>Phone: <span className="text-white">9300769509</span></p>
+            <p>Email: <a href="mailto:Vanshchouksey2175@gmail.com" className="footer-link">VendormarketSupport@gmail.com</a></p>
+            <p>Phone: <span className="text-white">93007695XX</span></p>
             <p>Address: <span className="text-white">123 Market Street, City, Country</span></p>
           </Col>
         </Row>

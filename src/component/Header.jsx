@@ -121,13 +121,6 @@ const Header = () => {
             </Nav.Link>
 
             <NavDropdown title="Account" id="basic-nav-dropdown" align="end">
-              <NavDropdown.Item as={Link} to="/login">
-                Login
-              </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/register">
-                Register
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to="/profile">
                 Profile
               </NavDropdown.Item>
